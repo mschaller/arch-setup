@@ -48,7 +48,7 @@ parted -s $NAMEDEVICE set 1 boot on
 mkfs.ext4 -F -F ${NAMEDEVICE}1
 mount ${NAMEDEVICE}1 /mnt
 
-pacman --noconfirm -S reflector
+pacman --noconfirm -Sy reflector
 #cat /etc/pacman.d/mirrorlist | grep .de/ > /etc/pacman.d/mirrorlist
 reflector --country 'Germany' --sort rate --protocol https --save /etc/pacman.d/mirrorlist
 pacstrap /mnt base base-devel wget grub
