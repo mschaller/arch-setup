@@ -47,7 +47,10 @@ parted $NAMEDEVICE mkpart primary ext4 0% 100%
 parted $NAMEDEVICE set 1 boot on
 mkfs.ext4 ${NAMEDEVICE}1
 mount ${NAMEDEVICE}1 /mnt
-cat /etc/pacman.d/mirrorlist | grep .de/ > /etc/pacman.d/mirrorlist
+
+pacman --noconfirm -S reflector
+#cat /etc/pacman.d/mirrorlist | grep .de/ > /etc/pacman.d/mirrorlist
+reflector --country 'Germany' --sort rate --protocol https --save /etc/pacman.d/mirrorlist
 pacstrap /mnt base base-devel wget grub
 genfstab -U /mnt > /mnt/etc/fstab
 
@@ -56,6 +59,7 @@ echo "NAMEUSER=$NAMEUSER\nNAMELOCALE=$NAMELOCALE\nNAMEDOMAIN=$NAMEDOMAIN\nNAMETI
 wget -nv -O /mnt/root/stage2.sh https://raw.githubusercontent.com/mschaller/arch-setup/master/stage2.sh \
     && chmod u+x /mnt/root/stage2.sh
 
+cp /etc/pacman.d/mirrorlist /mnt/etc/pacman.d/mirrorlist
 arch-chroot /mnt /root/stage2.sh
 
 rm /mnt/root/stage2.env
