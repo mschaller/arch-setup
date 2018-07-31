@@ -42,10 +42,10 @@ if [ ! -n "${NAMEKEYMAP+1}" ]; then
 fi
 
 timedatectl set-ntp true
-parted $NAMEDEVICE mklabel msdos
-parted $NAMEDEVICE mkpart primary ext4 0% 100%
-parted $NAMEDEVICE set 1 boot on
-mkfs.ext4 ${NAMEDEVICE}1
+parted -s $NAMEDEVICE mklabel msdos
+parted -s $NAMEDEVICE mkpart primary ext4 0% 100%
+parted -s $NAMEDEVICE set 1 boot on
+mkfs.ext4 -F -F ${NAMEDEVICE}1
 mount ${NAMEDEVICE}1 /mnt
 
 pacman --noconfirm -S reflector
