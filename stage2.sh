@@ -52,4 +52,4 @@ if [[ $? != 0 ]]; then
     exit
 fi
 
-
+echo "password" | passwd --stdin

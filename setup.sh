@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# stop on error
+set -e
+
 if [ ! -n "${NAMEUSER+1}" ]; then
     NAMEUSER=kaputtnik
 fi
