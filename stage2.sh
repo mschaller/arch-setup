@@ -32,8 +32,6 @@ fi
 
 echo $NAMEHOST > /etc/hostname
 
-pacman -S --noconfirm grub os-prober
-
 mkinitcpio -p linux
 if [[ $? != 0 ]]; then
     echo Failed to create initcpio
@@ -52,4 +50,4 @@ if [[ $? != 0 ]]; then
     exit
 fi
 
-echo "password" | passwd --stdin
+printf "password\npassword\n" | passwd root

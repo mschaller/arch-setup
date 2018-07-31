@@ -48,7 +48,7 @@ parted $NAMEDEVICE set 1 boot on
 mkfs.ext4 ${NAMEDEVICE}1
 mount ${NAMEDEVICE}1 /mnt
 cat /etc/pacman.d/mirrorlist | grep .de/ > /etc/pacman.d/mirrorlist
-pacstrap /mnt base base-devel wget
+pacstrap /mnt base base-devel wget grub
 genfstab -U /mnt > /mnt/etc/fstab
 
 echo "NAMEUSER=$NAMEUSER\nNAMELOCALE=$NAMELOCALE\nNAMEDOMAIN=$NAMEDOMAIN\nNAMETIMEZONE=$NAMETIMEZONE\nNAMELOCALE=$NAMELOCALE\nNAMEKEYMAP=$NAMEKEYMAP\nNAMEDEVICE=$NAMEDEVICE" > /mnt/root/stage2.env
