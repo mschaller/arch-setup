@@ -41,6 +41,20 @@ if [ ! -n "${NAMEKEYMAP+1}" ]; then
     NAMEKEYMAP=de-latin1
 fi
 
+
+echo "Archlinux setup script"
+echo "----------------------"
+echo "Parameters:"
+echo "USER         = $NAMEUSER"
+echo "HOST         = $NAMEHOST"
+echo "DOMAIN       = $NAMEDOMAIN"
+echo "DEVICE       = $NAMEDEVICE"
+echo "TIMEZONE     = $NAMETIMEZONE"
+echo "LOCALE       = $NAMELOCALE"
+echo "KEYMAP       = $NAMEKEYMAP"
+echo ""
+sleep 5
+
 timedatectl set-ntp true
 parted -s $NAMEDEVICE mklabel msdos
 parted -s $NAMEDEVICE mkpart primary ext4 0% 100%
@@ -49,12 +63,11 @@ mkfs.ext4 -m 0 -F -F ${NAMEDEVICE}1
 mount ${NAMEDEVICE}1 /mnt
 
 pacman --noconfirm -Sy reflector
-#cat /etc/pacman.d/mirrorlist | grep .de/ > /etc/pacman.d/mirrorlist
 reflector --country 'Germany' --sort rate --protocol https --save /etc/pacman.d/mirrorlist
 pacstrap /mnt base base-devel wget
 genfstab -U /mnt > /mnt/etc/fstab
 
-echo "NAMEUSER=$NAMEUSER\nNAMELOCALE=$NAMELOCALE\nNAMEDOMAIN=$NAMEDOMAIN\nNAMETIMEZONE=$NAMETIMEZONE\nNAMELOCALE=$NAMELOCALE\nNAMEKEYMAP=$NAMEKEYMAP\nNAMEDEVICE=$NAMEDEVICE" > /mnt/root/stage2.env
+printf "NAMEHOST=$NAMEHOST\nNAMEUSER=$NAMEUSER\nNAMELOCALE=$NAMELOCALE\nNAMEDOMAIN=$NAMEDOMAIN\nNAMETIMEZONE=$NAMETIMEZONE\nNAMELOCALE=$NAMELOCALE\nNAMEKEYMAP=$NAMEKEYMAP\nNAMEDEVICE=$NAMEDEVICE" > /mnt/root/stage2.env
 
 wget -nv -O /mnt/root/stage2.sh https://raw.githubusercontent.com/mschaller/arch-setup/master/stage2.sh \
     && chmod u+x /mnt/root/stage2.sh
