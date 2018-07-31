@@ -1,6 +1,8 @@
 #!/bin/bash
 source /root/stage2.env
 
+pacman --noconfirm -S grub
+
 ln -sf /usr/share/zoneinfo/Europe/Berlin /etc/localtime
 hwclock --systohc -utc
 

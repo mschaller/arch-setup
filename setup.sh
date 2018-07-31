@@ -45,13 +45,13 @@ timedatectl set-ntp true
 parted -s $NAMEDEVICE mklabel msdos
 parted -s $NAMEDEVICE mkpart primary ext4 0% 100%
 parted -s $NAMEDEVICE set 1 boot on
-mkfs.ext4 -F -F ${NAMEDEVICE}1
+mkfs.ext4 -m 0 -F -F ${NAMEDEVICE}1
 mount ${NAMEDEVICE}1 /mnt
 
 pacman --noconfirm -Sy reflector
 #cat /etc/pacman.d/mirrorlist | grep .de/ > /etc/pacman.d/mirrorlist
 reflector --country 'Germany' --sort rate --protocol https --save /etc/pacman.d/mirrorlist
-pacstrap /mnt base base-devel wget grub
+pacstrap /mnt base base-devel wget
 genfstab -U /mnt > /mnt/etc/fstab
 
 echo "NAMEUSER=$NAMEUSER\nNAMELOCALE=$NAMELOCALE\nNAMEDOMAIN=$NAMEDOMAIN\nNAMETIMEZONE=$NAMETIMEZONE\nNAMELOCALE=$NAMELOCALE\nNAMEKEYMAP=$NAMEKEYMAP\nNAMEDEVICE=$NAMEDEVICE" > /mnt/root/stage2.env
