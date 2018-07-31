@@ -64,3 +64,5 @@ arch-chroot /mnt /root/stage2.sh
 
 rm /mnt/root/stage2.env
 rm /mnt/root/stage2.sh
+
+reboot
