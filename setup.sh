@@ -83,7 +83,7 @@ reflector --country 'Germany' --sort rate --protocol https --save /etc/pacman.d/
 pacstrap /mnt base base-devel wget
 genfstab -U /mnt > /mnt/etc/fstab
 
-printf "NAMEHOST=$NAMEHOST\nNAMEUSER=$NAMEUSER\nNAMEUSERPWD=$NAMEUSERPWD\nNAMELOCALE=$NAMELOCALE\nNAMEDOMAIN=$NAMEDOMAIN\nNAMETIMEZONE=$NAMETIMEZONE\nNAMELOCALE=$NAMELOCALE\nNAMEKEYMAP=$NAMEKEYMAP\nNAMEDEVICE=$NAMEDEVICE\nNAMEROOTPWD=$NAMEROOTPWD" > /mnt/root/stage2.env
+printf "NAMEHOST=$NAMEHOST\nNAMEUSER=$NAMEUSER\nNAMEUSERPWD=$NAMEUSERPWD\nNAMELOCALE=$NAMELOCALE\nNAMEDOMAIN=$NAMEDOMAIN\nNAMETIMEZONE=$NAMETIMEZONE\nNAMELOCALE=$NAMELOCALE\nNAMEKEYMAP=$NAMEKEYMAP\nNAMEDEVICE=$NAMEDEVICE\nNAMEROOTPWD=$NAMEROOTPWD\nNAMESWAPGB=$NAMESWAPGB" > /mnt/root/stage2.env
 
 wget -nv -O /mnt/root/stage2.sh https://raw.githubusercontent.com/mschaller/arch-setup/master/stage2.sh \
     && chmod u+x /mnt/root/stage2.sh

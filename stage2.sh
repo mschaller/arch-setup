@@ -60,11 +60,19 @@ echo "/swapfile none swap defaults 0 0" >> /etc/fstab
 
 
 printf "$NAMEROOTPWD\n$NAMEROOTPWD\n" | passwd root
+if [[ $? != 0 ]]; then
+    echo Failed to set password for root
+    exit 1
+fi
 
-useradd -m -g users -G wheel,uucp,rfkill -s /usr/bin/zsh $NAMEUSER
+useradd -m -g users -G wheel,uucp,rfkill -s /usr/bin/bash $NAMEUSER
 if [[ $? != 0 ]]; then
     echo Failed to add user
+    exit 1
 fi
 
 printf "$NAMEUSERPWD\n$NAMEUSERPWD\n" | passwd $NAMEUSER
-
+if [[ $? != 0 ]]; then
+    echo Failed to set password for $NAMEUSER
+    exit 1
+fi
