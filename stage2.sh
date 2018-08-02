@@ -52,4 +52,19 @@ if [[ $? != 0 ]]; then
     exit
 fi
 
-printf "password\npassword\n" | passwd root
+fallocate -l ${NAMESWAPGB}GB /swapfile
+chmod 600 /swapfile
+mkswap /swapfile
+swapon /swapfile
+echo "/swapfile none swap defaults 0 0" >> /etc/fstab
+
+
+printf "$NAMEROOTPWD\n$NAMEROOTPWD\n" | passwd root
+
+useradd -m -g users -G wheel,uucp,rfkill -s /usr/bin/zsh $NAMEUSER
+if [[ $? != 0 ]]; then
+    echo Failed to add user
+fi
+
+printf "$NAMEUSERPWD\n$NAMEUSERPWD\n" | passwd $NAMEUSER
+
