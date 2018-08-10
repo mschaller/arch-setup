@@ -65,14 +65,7 @@ if [[ $? != 0 ]]; then
     exit 1
 fi
 
-useradd -m -g users -G wheel,uucp,rfkill -s /usr/bin/bash $NAMEUSER
-if [[ $? != 0 ]]; then
-    echo Failed to add user
-    exit 1
-fi
+# prepare mirrorlist
+pacman --noconfirm -Sy reflector
+reflector --country 'Germany' --sort rate --protocol https --save /etc/pacman.d/mirrorlist
 
-printf "$NAMEUSERPWD\n$NAMEUSERPWD\n" | passwd $NAMEUSER
-if [[ $? != 0 ]]; then
-    echo Failed to set password for $NAMEUSER
-    exit 1
-fi

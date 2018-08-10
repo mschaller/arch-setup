@@ -7,14 +7,6 @@ if [ ! -n "${NAMEROOTPWD+1}" ]; then
     NAMEROOTPWD=password
 fi
 
-if [ ! -n "${NAMEUSER+1}" ]; then
-    NAMEUSER=kaputtnik
-fi
-
-if [ ! -n "${NAMEUSERPWD+1}" ]; then
-    NAMEUSERPWD=$NAMEUSER
-fi
-
 if [ ! -n "${NAMEHOST+1}" ]; then
     NAMEHOST=arch-vbox
 fi
@@ -55,12 +47,11 @@ if [ ! -n "${NAMEKEYMAP+1}" ]; then
 fi
 
 
+echo "----------------------"
 echo "Archlinux setup script"
 echo "----------------------"
 echo "Parameters:"
 echo "ROOTPWD      = $NAMEROOTPWD"
-echo "USER         = $NAMEUSER"
-echo "USERPWD      = $NAMEUSERPWD"
 echo "HOST         = $NAMEHOST"
 echo "DOMAIN       = $NAMEDOMAIN"
 echo "DEVICE       = $NAMEDEVICE"
@@ -78,16 +69,17 @@ parted -s $NAMEDEVICE set 1 boot on
 mkfs.ext4 -m 0 -F -F ${NAMEDEVICE}1
 mount ${NAMEDEVICE}1 /mnt
 
-pacman --noconfirm -Sy reflector
-reflector --country 'Germany' --sort rate --protocol https --save /etc/pacman.d/mirrorlist
-pacstrap /mnt base base-devel wget
+cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.bak 
+grep ".de/" /etc/pacman.d/mirrorlist.bak > /etc/pacman.d/mirrorlist 
+
+pacstrap /mnt base wget
 genfstab -U /mnt > /mnt/etc/fstab
 
-printf "NAMEHOST=$NAMEHOST\nNAMEUSER=$NAMEUSER\nNAMEUSERPWD=$NAMEUSERPWD\nNAMELOCALE=$NAMELOCALE\nNAMEDOMAIN=$NAMEDOMAIN\nNAMETIMEZONE=$NAMETIMEZONE\nNAMELOCALE=$NAMELOCALE\nNAMEKEYMAP=$NAMEKEYMAP\nNAMEDEVICE=$NAMEDEVICE\nNAMEROOTPWD=$NAMEROOTPWD\nNAMESWAPGB=$NAMESWAPGB" > /mnt/root/stage2.env
+printf "NAMEHOST=$NAMEHOST\nNAMELOCALE=$NAMELOCALE\nNAMEDOMAIN=$NAMEDOMAIN\nNAMETIMEZONE=$NAMETIMEZONE\nNAMELOCALE=$NAMELOCALE\nNAMEKEYMAP=$NAMEKEYMAP\nNAMEDEVICE=$NAMEDEVICE\nNAMEROOTPWD=$NAMEROOTPWD\nNAMESWAPGB=$NAMESWAPGB" > /mnt/root/stage2.env
 
-wget -nv -O /mnt/root/stage2.sh https://raw.githubusercontent.com/mschaller/arch-setup/master/stage2.sh \
-    && chmod u+x /mnt/root/stage2.sh
+wget -nv --no-check-certificate -O /mnt/root/stage2.sh https://raw.githubusercontent.com/mschaller/arch-setup/master/stage2.sh && chmod u+x /mnt/root/stage2.sh
 
-cp /etc/pacman.d/mirrorlist /mnt/etc/pacman.d/mirrorlist
-arch-chroot /mnt /root/stage2.sh && rm /mnt/root/stage2.env && rm /mnt/root/stage2.sh && reboot
+arch-chroot /mnt /root/stage2.sh 
+rm /mnt/root/stage2.env && rm /mnt/root/stage2.sh 
+reboot
 
