@@ -20,15 +20,9 @@ locale-gen
 echo "LANG=$NAMELOCALE" > /etc/locale.conf
 echo "KEYMAP=$NAMEKEYMAP" > /etc/vconsole.conf
 
-echo SUBSYSTEM==\"net\", ACTION==\"add\", ATTR{address}==\"`ip addr show \`ls /sys/class/net --color=never | egrep "^wl|^en"\` | grep link/ | awk '{print $2}'`\", NAME=\"net1\" > /etc/udev/rules.d/10-network.rules && cat /etc/udev/rules.d/10-network.rules
+systemctl enable dhcpcd@`ls /sys/class/net | egrep "en" | awk '{print $1}'`.service
 if [[ $? != 0 ]]; then
-    echo Failed to rename network device to net1
-    exit
-fi
-
-systemctl enable dhcpcd@net1.service
-if [[ $? != 0 ]]; then
-    echo Failed to enable net1
+    echo Failed to enable dhcpcd
     exit
 fi
 
