@@ -72,7 +72,7 @@ mount ${NAMEDEVICE}1 /mnt
 cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.bak 
 grep ".de/" /etc/pacman.d/mirrorlist.bak > /etc/pacman.d/mirrorlist 
 
-pacstrap /mnt base wget linux linux-firmware
+pacstrap /mnt base wget linux linux-firmware dhcpcd
 genfstab -U /mnt > /mnt/etc/fstab
 
 printf "NAMEHOST=$NAMEHOST\nNAMELOCALE=$NAMELOCALE\nNAMEDOMAIN=$NAMEDOMAIN\nNAMETIMEZONE=$NAMETIMEZONE\nNAMELOCALE=$NAMELOCALE\nNAMEKEYMAP=$NAMEKEYMAP\nNAMEDEVICE=$NAMEDEVICE\nNAMEROOTPWD=$NAMEROOTPWD\nNAMESWAPGB=$NAMESWAPGB" > /mnt/root/stage2.env
