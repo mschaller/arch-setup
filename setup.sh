@@ -77,7 +77,8 @@ genfstab -U /mnt > /mnt/etc/fstab
 
 printf "NAMEHOST=$NAMEHOST\nNAMELOCALE=$NAMELOCALE\nNAMEDOMAIN=$NAMEDOMAIN\nNAMETIMEZONE=$NAMETIMEZONE\nNAMELOCALE=$NAMELOCALE\nNAMEKEYMAP=$NAMEKEYMAP\nNAMEDEVICE=$NAMEDEVICE\nNAMEROOTPWD=$NAMEROOTPWD\nNAMESWAPGB=$NAMESWAPGB" > /mnt/root/stage2.env
 
-wget -nv --no-check-certificate -O /mnt/root/stage2.sh https://raw.githubusercontent.com/mschaller/arch-setup/master/stage2.sh && chmod u+x /mnt/root/stage2.sh
+curl -sL https://raw.githubusercontent.com/mschaller/arch-setup/master/stage2.sh > /mnt/root/stage2.sh 
+chmod u+x /mnt/root/stage2.sh
 
 arch-chroot /mnt /root/stage2.sh 
 rm /mnt/root/stage2.env && rm /mnt/root/stage2.sh 
