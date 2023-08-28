@@ -3,5 +3,5 @@
 ## Howto
 
 ```
-curl -sL https://tiny.cc/arch-setup | bash
+curl -sL https://raw.githubusercontent.com/mschaller/arch-setup/master/setup.sh | bash
 ```
