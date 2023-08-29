@@ -3,7 +3,7 @@ source /root/stage2.env
 
 pacman --noconfirm -S grub openssh sudo
 
-echo "%wheel ALL=(ALL:ALL) ALL" >/etc/sudoers.d/$NAMEUSER
+sed -i '/^# %wheel ALL=(ALL:ALL) ALL/s/^# //g' /etc/sudoers
 
 systemctl enable sshd
 
