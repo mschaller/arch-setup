@@ -62,7 +62,7 @@ fi
 
 useradd -m -G wheel -s /bin/bash $NAMEUSER
 
-printf "$NAMEUSER\n$NAMEUSERPWD\n" | passwd $NAMEUSER
+printf "$NAMEUSERPWD\n$NAMEUSERPWD\n" | passwd $NAMEUSER
 if [[ $? != 0 ]]; then
 	echo Failed to set password for $NAMEUSER
 fi
