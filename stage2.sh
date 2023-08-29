@@ -60,7 +60,7 @@ if [[ $? != 0 ]]; then
 	exit 1
 fi
 
-useradd -m -G sudoers -s /bin/bash $NAMEUSER
+useradd -m -G wheel -s /bin/bash $NAMEUSER
 
 printf "$NAMEUSER\n$NAMEUSERPWD\n" | passwd $NAMEUSER
 if [[ $? != 0 ]]; then
