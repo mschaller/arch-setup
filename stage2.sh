@@ -70,3 +70,5 @@ fi
 # prepare mirrorlist
 pacman --noconfirm -Sy reflector
 reflector --country 'Germany' --sort rate --protocol https --save /etc/pacman.d/mirrorlist
+
+sleep 60
