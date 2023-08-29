@@ -3,6 +3,8 @@ source /root/stage2.env
 
 pacman --noconfirm -S grub openssh sudo
 
+echo "%wheel ALL=(ALL:ALL) ALL" >/etc/sudoers.d/$NAMEUSER
+
 systemctl enable sshd
 
 ln -sf /usr/share/zoneinfo/Europe/Berlin /etc/localtime
@@ -70,5 +72,3 @@ fi
 # prepare mirrorlist
 pacman --noconfirm -Sy reflector
 reflector --country 'Germany' --sort rate --protocol https --save /etc/pacman.d/mirrorlist
-
-sleep 60
