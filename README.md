@@ -8,4 +8,4 @@ curl -sL https://raw.githubusercontent.com/mschaller/arch-setup/master/setup.sh 
 
 ## Preview
 
-![example run with VirtualBox](https://github.com/mschaller/arch-setup/raw/master/assets/preview.gif)
+![example run with VirtualBox](https://raw.githubusercontent.com/mschaller/arch-setup/master/assets/preview.gif)
