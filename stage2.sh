@@ -8,7 +8,7 @@ sed -i '/^# %wheel ALL=(ALL:ALL) ALL/s/^# //g' /etc/sudoers
 systemctl enable sshd
 
 ln -sf /usr/share/zoneinfo/Europe/Berlin /etc/localtime
-hwclock --systohc -utc
+hwclock --systohc --utc
 
 sed -i "s/^#$NAMELOCALE/$NAMELOCALE/" /etc/locale.gen
 if [[ $? != 0 ]]; then
