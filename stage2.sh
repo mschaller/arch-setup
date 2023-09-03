@@ -1,7 +1,7 @@
 #!/bin/bash
 source /root/stage2.env
 
-pacman --noconfirm -S grub openssh sudo
+pacman --noconfirm -Sy grub openssh sudo
 
 sed -i '/^# %wheel ALL=(ALL:ALL) ALL/s/^# //g' /etc/sudoers
 
